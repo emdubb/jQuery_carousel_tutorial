@@ -1,8 +1,9 @@
 $(document).ready(function(){
 
   // set an interval for the slide to run on
-  var interval = window.setInterval(function(){
+  var interval = window.setInterval(rotateSlides, 3000); // Duration until slide changes (3sec)
 
+  function rotateSlides(){
     // Get the first slide and store it
     var $firstSlide = $('#carousel').find('div:first');
 
@@ -19,7 +20,6 @@ $(document).ready(function(){
       // Reset slide position to the end of the queue
       $firstSlide.css({marginLeft: 0});
     });
-
-  }, 3000); // Duration until slide changes (3sec)
+  }
 
 });

@@ -150,9 +150,11 @@ We want our slideshow to automatically run on an interval so we will use JavaScr
 ```javascript
 $(document).ready(function(){
 
-  window.setInterval(function(){
+  var interval = window.setInterval(rotateSlides, 3000)
+  
+  function rotateSlides() {
     // animation will go here
-  }, 3000)
+  }
 
 })
 ```
@@ -168,9 +170,11 @@ Now that we have our interval set up, we want to start by grabbing the first sli
 ```javascript
 $(document).ready(function(){
 
-  window.setInterval(function(){
+  var interval = window.setInterval(rotateSlides, 3000)
+  
+  function rotateSlides() {
     var $firstSlide = $('#carousel').find('div:first');
-  }, 3000)
+  }
 
 })
 ```
@@ -182,10 +186,12 @@ Now that we have the slide, we want to move it to the left. We want to move it t
 ```javascript
 $(document).ready(function(){
 
-  window.setInterval(function(){
+  var interval = window.setInterval(rotateSlides, 3000)
+  
+  function rotateSlides(){
     var $firstSlide = $('#carousel').find('div:first');
     var width = $firstSlide.width();
-  }, 3000)
+  }
 
 })
 ```
@@ -198,15 +204,17 @@ Now that we have the info we need, lets do some animation with jQuery's [`.anima
 
 ```javascript
 $(document).ready(function(){
-
-  window.setInterval(function(){
+  
+  var interval = window.setInterval(rotateSlides, 3000)
+  
+  function rotateSlides(){
     var $firstSlide = $('#carousel').find('div:first');
     var width = $firstSlide.width();
     
     $firstSlide.animate({marginLeft: -width}, 1000, function(){
       // What to do after the animation
     })
-  }, 3000)
+  }
 
 })
 ```
@@ -229,8 +237,10 @@ We have the first slide stored as `$firstSlide` and we know we want to move it t
 
 ```javascript
 $(document).ready(function(){
-
-  window.setInterval(function(){
+  
+  var interval = window.setInterval(rotateSlides, 3000)
+  
+  function rotateSlides(){
     var $firstSlide = $('#carousel').find('div:first');
     var width = $firstSlide.width();
     
@@ -238,7 +248,7 @@ $(document).ready(function(){
       var $lastSlide = $('#carousel').find('div:last')
       $lastSlide.after($firstSlide);
     })
-  }, 3000)
+  }
 
 })
 ```
@@ -249,8 +259,10 @@ If you refresh your browser, all the slide should rotate. If you open up your br
 
 ```javascript
 $(document).ready(function(){
-
-  window.setInterval(function(){
+  
+  var interval = window.setInterval(rotateSlides, 3000)
+  
+  function rotateSlides(){
     var $firstSlide = $('#carousel').find('div:first');
     var width = $firstSlide.width();
     
@@ -259,7 +271,7 @@ $(document).ready(function(){
       $lastSlide.after($firstSlide);
       $firstSlide.css({marginLeft: 0})
     })
-  }, 3000)
+  }
 
 })
 ```

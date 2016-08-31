@@ -24,8 +24,8 @@ $(document).ready(function(){
   }
 
   // Listen for click on arrows
-  $('.left-arrow').click(previousSlide);
-  $('.right-arrow').click(nextSlide);
+  $('#left-arrow').click(previousSlide);
+  $('#right-arrow').click(nextSlide);
   // Listen for click on slide image
   $('.slide-image').click(nextSlide);
 

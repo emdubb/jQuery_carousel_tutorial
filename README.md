@@ -357,8 +357,8 @@ Looking pretty stellar, right? Now, lets make these arrows do something!
 Heading back JavaScript, lets add listeners for the arrows and set up their corresponding functions. I'm feeling a little extra fancy, so I'm going to add a listener for when the slide is clicked to advance.
 
 ```javascript
-$('.left-arrow').click(previousSlide);
-$('.right-arrow').click(nextSlide);
+$('#left-arrow').click(previousSlide);
+$('#right-arrow').click(nextSlide);
 $('.slide-image').click(nextSlide);
 
 function nextSlide(){

@@ -1,0 +1,72 @@
+#carousel {
+  /*Set the container carousel to be fullscreen. If you change the size
+  of your carousel make sure to also change the size of your slides*/
+  height: 100vh;
+  width: 100vw;
+  /*Prevent images from wrapping*/
+  white-space: nowrap;
+  overflow: hidden;
+  /*Allow children to be positioned relatively*/
+  position: relative;
+}
+
+.slide-image {
+  /*Make the image container full screen*/
+  width: 100vw;
+  height: 100vh;
+  /*Make the image cover the the screen and center it*/
+  background-position: center;
+  background-size: cover;
+  /*Make images inline with each other*/
+  display: inline-block;
+}
+
+.arrow {
+  width: 5%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+#right-arrow {
+  right: 20px;
+}
+
+#left-arrow {
+  left: 20px;
+}
+
+#slide1 {
+  background-image: url('../img/image1.jpg');
+}
+
+#slide2 {
+  background-image: url('../img/image2.jpg');
+}
+
+#slide3 {
+  background-image: url('../img/image3.jpg');
+}
+
+#slide4 {
+  background-image: url('../img/image4.jpg');
+}
+
+#slide5 {
+  background-image: url('../img/image5.jpg');
+}
+
+/*Mobile Devices*/
+@media (max-device-width: 1024px) {
+  .arrow {
+    width: 20%;
+  }
+}
+
+/*Small Browsers*/
+@media (max-width: 768px) {
+  .arrow {
+    width: 10%;
+  }
+}

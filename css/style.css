@@ -6,6 +6,7 @@
   /*Prevent images from wrapping*/
   white-space: nowrap;
   overflow: hidden;
+  /*Allow children to be positioned relatively*/
   position: relative;
 }
 
@@ -28,11 +29,11 @@
   cursor: pointer;
 }
 
-.right-arrow {
+#right-arrow {
   right: 20px;
 }
 
-.left-arrow {
+#left-arrow {
   left: 20px;
 }
 

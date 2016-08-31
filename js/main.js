@@ -23,28 +23,13 @@ $(document).ready(function(){
     });
   }
 
-  // Listen for click on arrow
-  $('.right-arrow').click(function(){
-    // Stop the interval from running
-    window.clearInterval(interval);
-    // Get the current slide
-    var $currentSlide = $('#carousel').find('div:first');
-    // Get the width of the slide so we know how much to slide by
-    var width = $currentSlide.width();
-    // Animate to the next slide
-    $currentSlide.animate({marginLeft: -width}, 1000, function(){
-      // Reorder slides - move the $firstSlide after the last slide
-      var $lastSlide = $('#carousel').find('div:last')
-      $lastSlide.after($currentSlide);
-      // Reset slide position to the end of the queue
-      $currentSlide.css({marginLeft: 0})
-      // Resume the interval
-      interval = window.setInterval(rotateSlides, 3000);
-    });
-  });
+  // Listen for click on arrows
+  $('.left-arrow').click(previousSlide);
+  $('.right-arrow').click(nextSlide);
+  // Listen for click on slide image
+  $('.slide-image').click(nextSlide);
 
-  // Listen for click on arrow
-  $('.left-arrow').click(function(){
+  function previousSlide(){
     // Stop the interval from running
     window.clearInterval(interval);
     // Get the current slide
@@ -61,6 +46,25 @@ $(document).ready(function(){
       // Resume the interval
       interval = window.setInterval(rotateSlides, 3000);
     });
-  });
+  }
+
+  function nextSlide(){
+    // Stop the interval from running
+    window.clearInterval(interval);
+    // Get the current slide
+    var $currentSlide = $('#carousel').find('div:first');
+    // Get the width of the slide so we know how much to slide by
+    var width = $currentSlide.width();
+    // Animate to the next slide
+    $currentSlide.animate({marginLeft: -width}, 1000, function(){
+      // Reorder slides - move the $firstSlide after the last slide
+      var $lastSlide = $('#carousel').find('div:last')
+      $lastSlide.after($currentSlide);
+      // Reset slide position to the end of the queue
+      $currentSlide.css({marginLeft: 0})
+      // Resume the interval
+      interval = window.setInterval(rotateSlides, 3000);
+    });
+  }
 
 });

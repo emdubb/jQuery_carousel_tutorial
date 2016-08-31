@@ -4,7 +4,6 @@ This tutorial will teach you how to build a responsive carousel with jQuery. Vie
 
 - Auto rotation
 - Responsive
-- Progress indicators
 - Arrow controls
 
 ### Getting started
@@ -284,6 +283,200 @@ If you refresh your browser you should now have a carousel rotaing on repeat. Hu
 
 ### Fancy Functionality
 
-#### Adding Arrow Controls
+Okay, fancy pants. You have a wicked cool carousel, but now you want to be able to click through it. Let's add some arrow controls!
 
-#### Show Slide Progression
+#### Step 10: Adding Arrow Controls - Setting Up The HTML
+
+Lets add our arrows to the HTML in the carousel section, but above the slides. Give each arrow an 'arrow' class for shared stylings and an id 'left-arrow' and 'right-arrow' for arrow specific stylings.
+
+```html
+<section id="carousel">
+    <img src="img/arrow_left.svg" alt="Left Carousel Arrow" class="arrow" id="left-arrow">
+    <img src="img/arrow_right.svg" alt="Right Carousel Arrow" class="arrow" id="right-arrow">
+    <div class="slide-image" id="slide1">
+    </div>
+    ...
+</section>
+```
+
+
+
+#### Step 11: Adding Arrow Controls - Styling The Arrows
+
+First let's make sure the arrows are a reasonable size. If you are using the assets from this demo, set the 'width' property to '5%'. We want the arrows to be vertically centered. To do this set the parent element (the section with the id 'carousel') property 'position' to 'relative'. Then set the arrows to have a 'position' of 'absolute'. This will allow us to style the arrows relative to their parent container. Now we can set the 'top' property to '50%' and to make sure that 50% is calculated from the center of the arrow image lets set the 'transform' property to 'translateY(50%)'. 
+
+```css
+#carousel {
+  ...
+  position: relative;
+}
+
+.arrow {
+  width: 5%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+#right-arrow {
+  right: 20px;
+}
+
+#left-arrow {
+  left: 20px;
+}
+```
+
+
+
+#### Step 12: Adding Arrow Controls - Responsive CSS
+
+We want the arrows to look proportionate on each device, so we will add some media queries. If you aren't sure how to write media queries, that's okay. It is outside of the scope of this tutorial, but make sure you add the following to the **bottom** of your css file.
+
+```css
+@media (max-device-width: 1024px) {
+  .arrow {
+    width: 20%;
+  }
+}
+
+@media (max-width: 768px) {
+  .arrow {
+    width: 10%;
+  }
+}
+```
+
+Looking pretty stellar, right? Now, lets make these arrows do something!
+
+
+
+#### Step 13: Adding Arrow Controls - Event Listeners
+
+Heading back JavaScript, lets add listeners for the arrows and set up their corresponding functions. I'm feeling a little extra fancy, so I'm going to add a listener for when the slide is clicked to advance.
+
+```javascript
+$('.left-arrow').click(previousSlide);
+$('.right-arrow').click(nextSlide);
+$('.slide-image').click(nextSlide);
+
+function nextSlide(){
+  // Go to next slide
+}
+
+function previousSlide(){
+  // Go to previous slide
+}
+```
+
+
+
+#### Step 14: Adding Arrow Controls - Advancing To The Next Slide
+
+Let's start with advancing to the next slide. The first thing we want to do is stop the automatic advancing of the carousel by clearing the interval.
+
+```javascript
+function nextSlide(){
+  window.clearInterval(interval);
+}
+```
+
+
+
+Since we are making a responsive carousel we want to get the current slide and the width like we did before. We don't want to rely on the values that we were using in the interval because the browser may have changed. We want the variables at the exact moment the user clicked. 
+
+```javascript
+function nextSlide(){
+  window.clearInterval(interval);
+  var $currentSlide = $('#carousel').find('div:first');
+  var width = $currentSlide.width();
+}
+```
+
+
+
+Now that we have the info we need, just like before, let's advance to the next slide. Then after the animation move the current slide to be after the last on in the queue. This is the same thing we were doing within the interval above.
+
+```javascript
+function nextSlide(){
+  window.clearInterval(interval);
+  var $currentSlide = $('#carousel').find('div:first');
+  var width = $currentSlide.width();
+  $currentSlide.animate({marginLeft: -width}, 1000, function(){
+    var $lastSlide = $('#carousel').find('div:last')
+    $lastSlide.after($currentSlide);
+    $currentSlide.css({marginLeft: 0})
+  });
+}
+```
+
+
+
+We have one more step to go before our 'nextSlide' method is complete. We need to resume the interval. We are going to reassign the variable 'interval' with a new interval session that references the same functionality in our 'rotateSlides' method.
+
+```javascript
+function nextSlide(){
+  window.clearInterval(interval);
+  var $currentSlide = $('#carousel').find('div:first');
+  var width = $currentSlide.width();
+  $currentSlide.animate({marginLeft: -width}, 1000, function(){
+    var $lastSlide = $('#carousel').find('div:last')
+    $lastSlide.after($currentSlide);
+    $currentSlide.css({marginLeft: 0})
+    interval = window.setInterval(rotateSlides, 3000);
+  });
+}
+```
+
+
+
+#### Step 15: Adding Arrow Controls - Going Back To The Previous Slide
+
+Almost there! The 'previousSlide' method will be very similar but we need to adjust a few things to be able to go backwards. We are going to start of the same as the 'nextSlide' method by stopping the interval and getting the current values that we need. In this case we need the current slide, the width, and the previous slide before we animate.
+
+```javascript
+function previousSlide(){
+  window.clearInterval(interval);
+  var $currentSlide = $('#carousel').find('div:first');
+  var width = $currentSlide.width();
+  var $previousSlide = $('#carousel').find('div:last')
+}
+```
+
+
+
+Before we animate this bad boy we need to take an extra step and move the previous slide back to the front of the queue so that it can slide in nicely from the left side of the screen. We will do this by setting the left margin of the previous slide to the negative value of its width and using jQuery's [`.before()`](http://api.jquery.com/before/) method to reorder the DOM.
+
+```javascript
+function previousSlide(){
+  window.clearInterval(interval);
+  var $currentSlide = $('#carousel').find('div:first');
+  var width = $currentSlide.width();
+  var $previousSlide = $('#carousel').find('div:last')
+  $previousSlide.css({marginLeft: -width})
+  $currentSlide.before($previousSlide);
+}
+```
+
+
+
+Once we have the previous slide set to the front of the queue we can now add the animation just like before. This time in our animation callback function we do not need to reorder anything. All we need to do is restart the interval and it will continue to advance slides from there.
+
+```javascript
+function previousSlide(){
+  window.clearInterval(interval);
+  var $currentSlide = $('#carousel').find('div:first');
+  var width = $currentSlide.width();
+  var $previousSlide = $('#carousel').find('div:last')
+  $previousSlide.css({marginLeft: -width})
+  $currentSlide.before($previousSlide);
+  $previousSlide.animate({marginLeft: 0}, 1000, function(){
+    interval = window.setInterval(rotateSlides, 3000);
+  });
+}
+```
+
+
+
+Congratulations! You are now the proud new developer of a snazzy new responsive carousel that's locked and loaded with arrow controls.

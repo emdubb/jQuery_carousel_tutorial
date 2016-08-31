@@ -1,5 +1,12 @@
 # Responsive jQuery Carousel Tutorial
 
+This tutorial will teach you how to build a responsive carousel with jQuery. View the live [demo](https://emdubb.github.io/jQuery_carousel_tutorial/). Features of the carousel include:
+
+- Auto rotation
+- Responsive
+- Progress indicators
+- Arrow controls
+
 ### Getting started
 
 Make sure you have your html file linked to your CSS and JavaScript and that you have linked [jQuery](https://code.jquery.com/) to your document. We will also be using [normalize.css](https://necolas.github.io/normalize.css/). For the purposes of this demonstration our file structure will look like this:
@@ -263,4 +270,8 @@ If you refresh your browser you should now have a carousel rotaing on repeat. Hu
 
 ---
 
-#### 
+### Fancy Functionality
+
+#### Adding Arrow Controls
+
+#### Show Slide Progression

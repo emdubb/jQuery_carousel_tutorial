@@ -6,6 +6,7 @@
   /*Prevent images from wrapping*/
   white-space: nowrap;
   overflow: hidden;
+  position: relative;
 }
 
 .slide-image {
@@ -17,6 +18,22 @@
   background-size: cover;
   /*Make images inline with each other*/
   display: inline-block;
+}
+
+.arrow {
+  width: 5%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.right-arrow {
+  right: 20px;
+}
+
+.left-arrow {
+  left: 20px;
 }
 
 #slide1 {
@@ -37,4 +54,18 @@
 
 #slide5 {
   background-image: url('../img/image5.jpg');
+}
+
+/*Mobile Devices*/
+@media (max-device-width: 1024px) {
+  .arrow {
+    width: 20%;
+  }
+}
+
+/*Small Browsers*/
+@media (max-width: 768px) {
+  .arrow {
+    width: 10%;
+  }
 }
